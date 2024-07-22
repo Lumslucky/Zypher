@@ -1,3 +1,9 @@
 [submodule "Zypher_FCU"]
 	path = Zypher_FCU
 	url = https://github.com/Lumslucky/Zypher_FCU.git
+[submodule "Zypher_Link"]
+	path = Zypher_Link
+	url = https://github.com/Lumslucky/Zypher_Link.git
+[submodule "Zypher_Connect"]
+	path = Zypher_Connect
+	url = https://github.com/Lumslucky/Zypher_Connect.git
