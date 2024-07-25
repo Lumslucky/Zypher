@@ -130,9 +130,9 @@ There are multiple emergency conditions and procedures, that have to be followed
 __The following pre-programmed emergency procedures are available in the latest firmware version.__ (Priority)
 
 - Engine Stop (50)
-- Sudden Altitude loss (35)
-- GPS position loss (25)
-- Connection loss (15)
+- Sudden Altitude loss (30)
+- GPS position loss (20)
+- Connection loss (25)
 
 And of course every possible combination has to be separately handled. This is done by a priority order, such that an engine fall-off is more of a problem, than the loss of GPS signal.
 
@@ -143,3 +143,27 @@ With only one engine failing, the quadcopter is still able to maneuver without a
 #### Sudden Altitude loss
 
 In this procedure, the motors try to speed up as well, even taking control from the user to reduce the risk of slamming into the ground. This mode is present until the drone is idle in a stationary position for at least 5 seconds (If there is movement because of wind, that counts as stationary as well until a specific threshold). If this doesn't happen within 5 seconds off fast falling. It figures an undetected engine stop has happened and does the procedures for [Engine Stop](#engine-stop).
+
+#### GPS position loss
+
+If the GPS signal is lost, the drone has to immediately stop, no matter the operation as this can lead to flying into objects. It is important to note that the `Connection` between the Link and the FCU has to be available. If the connection is lost as well, the [Connection Lost](#connection-lost) procedure overrides this issue. Since the location is sent within every packet, the drone has a clear understanding of where the client is located at. So if an issue occurs, the user has to choose a position where the drone has to return to. This can either be the current location or the pre-defined safe-location. The drone will then try to calculate it's own position with the sensor data on the FCU and try to fly to the given position.
+
+#### Connection Lost
+
+If the connection between the FCU and the Link is interrupted, the Connection Lost procedure is ran. The main task of this mode is to try to regain connection to the Link. The user then `MUST` as well move in the direction of the drone, as the drone cannot be left unattained for more than 10 seconds. The FCU tries to fly the flown path precisely to get closer to the user. If the signal is not found after 10 seconds, the [Blocked](#blocked-mode) mode is initiated.
+
+#### Blocked Mode
+
+This mode is also called `Panic mode`. The connection has to be established as soon as possible.
+The drone descends to 2 meters from the ground, turning on everything (Lights, Sounds, etc... if available) to able to detect the drone even in daylight. At this point both the FCU and the Zypher-Connect App are aware of the situation. The FCU stays stationary and advertises it's precise location every second on the long range protocol. This is done for 40 seconds, afterwards the drone Lands safely and shutdowns completely. The only way to get the drone out of this blocked mode, is by making a system restart. (Of course everything has to be reconfigured before being able to take off once again).
+
+The position advertised, should help in determining the position of the drone if descends to a barely over-lookable place.
+
+__This is a fully open-source project. If you have any questions contact me: example@example.com__  
+__Feel free to contribute to the project!__
+
+## About me
+
+This project of mine has a really deep meaning to me and that is not because of what it can do or how much time I've been spending on this project, but rather to create something that I can be proud of and to see what one person alone can do (with smaller contributions and reviewers of course). But for a longer time I've been on and off projects and have never come as far as to actually complete something bigger other than the my [`MACROPAD`](#about-me) (but that was also only for a school project).
+
+I was 18 years old when I started this project at the beginning of the summer vacation and mostly worked on it while traveling between my `Home` and the company where I was doing my `Internship` at.
